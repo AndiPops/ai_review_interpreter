@@ -1,4 +1,4 @@
-package preprocessing;
+package training;
 
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
