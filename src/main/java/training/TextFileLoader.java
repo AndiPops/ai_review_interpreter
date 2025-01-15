@@ -40,8 +40,18 @@ public class TextFileLoader {
 
 			// Apply StringToWordVector filter to preprocess the text data
 			StringToWordVector filter = new StringToWordVector();
-			filter.setInputFormat(dataset);  // Set the input format for the filter
-			Instances filteredDataset = Filter.useFilter(dataset, filter);  // Apply the filter
+			filter.setInputFormat(dataset);
+			filter.setStopwordsHandler(new weka.core.stopwords.Rainbow()); // Use stopword removal
+			filter.setTFTransform(true);  // Use term frequency transformation
+			filter.setIDFTransform(true); // Use inverse document frequency transformation
+			Instances filteredDataset = Filter.useFilter(dataset, filter);
+
+//			// Print out the filtered dataset to check its features(bag-of-words)
+//			System.out.println("Filtered Dataset (numeric representation): ");
+//			for (int i = 0; i < filteredDataset.numInstances(); i++) {
+//				Instance inst = filteredDataset.instance(i);
+//				System.out.println(inst);
+//			}
 
 			// Train a Naive Bayes classifier
 			Classifier classifier = new NaiveBayes();
